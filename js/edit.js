@@ -37,6 +37,7 @@
     '#taerim-editbar .sw{width:26px;height:26px;border-radius:50%;border:2px solid #6A6354;cursor:pointer;padding:0}' +
     '#taerim-editbar .sw:hover{border-color:#F8F4EC}' +
     '#taerim-editbar input[type=color]{width:30px;height:28px;border:1px solid #6A6354;border-radius:6px;background:none;cursor:pointer;padding:1px}' +
+    '#taerim-editbar select{border:1px solid #6A6354;background:#3A3428;color:#F8F4EC;border-radius:6px;padding:.45rem .5rem;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}' +
     '#taerim-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;' +
     'background:#41522F;color:#fff;padding:.6rem 1.2rem;border-radius:999px;font-size:14px;font-weight:700;' +
     'opacity:0;transition:opacity .3s;pointer-events:none}' +
@@ -143,13 +144,28 @@
       '<button data-act="quit">✖ 편집 종료</button>' +
       '<span class="fmt"><b class="lbl">서식:</b>' +
       '<button data-fmt="bold" title="굵게"><b>가</b></button>' +
+      '<select data-sel="font" title="글씨체">' +
+      '<option value="">글씨체</option>' +
+      '<option value="serif">명조체</option>' +
+      '<option value="batang">바탕체</option>' +
+      '<option value="gungsuh">궁서체</option>' +
+      '<option value="dotum">돋움체</option>' +
+      '<option value="reset">원래 글씨체로</option>' +
+      '</select>' +
+      '<select data-sel="size" title="글자 크기">' +
+      '<option value="">크기</option>' +
+      '<option value="0.85em">작게</option>' +
+      '<option value="1.3em">크게</option>' +
+      '<option value="1.7em">아주 크게</option>' +
+      '<option value="reset">원래 크기로</option>' +
+      '</select>' +
       '<button class="sw" data-color="#221D15" style="background:#221D15" title="검정(기본)"></button>' +
       '<button class="sw" data-color="#41522F" style="background:#41522F" title="쑥녹색"></button>' +
       '<button class="sw" data-color="#B3261E" style="background:#B3261E" title="빨강"></button>' +
       '<button class="sw" data-color="#1F5C9F" style="background:#1F5C9F" title="파랑"></button>' +
       '<input type="color" value="#221D15" title="다른 색 고르기">' +
       '</span>' +
-      '<span class="hint">글자를 클릭하고 바로 타자 치세요. 색을 바꾸려면 글자를 마우스로 긁어 선택한 뒤 색 동그라미를 누르세요. 고치다 말고 닫아도 임시 저장돼요. 다 고치면 [파일로 내보내기]를 눌러 아들에게 보내 주세요.</span>';
+      '<span class="hint">글자를 클릭하고 바로 타자 치세요. 굵게·글씨체·크기·색은 글자를 마우스로 긁어 선택한 뒤 위 버튼을 누르세요. 고치다 말고 닫아도 임시 저장돼요. 다 고치면 [파일로 내보내기]를 눌러 아들에게 보내 주세요.</span>';
     document.body.appendChild(bar);
     document.body.style.paddingTop = '86px';
     // 서식 적용: <font> 태그 대신 style="color:..." 스팬을 만들게 함
@@ -159,16 +175,64 @@
       var s = window.getSelection();
       if (s.rangeCount && !s.isCollapsed) savedRange = s.getRangeAt(0).cloneRange();
     }
-    function applyFmt(cmd, val) {
+    function restoreSel() {
       if (savedRange) {
         var s = window.getSelection();
         s.removeAllRanges();
         s.addRange(savedRange);
       }
-      if (window.getSelection().isCollapsed) { showToast('먼저 글자를 마우스로 긁어 선택해 주세요'); return; }
+      if (window.getSelection().isCollapsed) { showToast('먼저 글자를 마우스로 긁어 선택해 주세요'); return false; }
+      return true;
+    }
+    function applyFmt(cmd, val) {
+      if (!restoreSel()) return;
       document.execCommand(cmd, false, val);
       saveDraft(true);
     }
+    function unwrap(el) {
+      var p = el.parentNode;
+      while (el.firstChild) p.insertBefore(el.firstChild, el);
+      p.removeChild(el);
+    }
+    // execCommand의 fontSize/fontName은 결과 태그가 제각각이라, 임시 표식을 심고
+    // 우리가 원하는 인라인 스타일 스팬으로 바꿔치기하는 방식을 쓴다
+    function collectMarked(fontSel, spanTest) {
+      var nodes = [].slice.call(document.querySelectorAll(fontSel));
+      [].slice.call(document.querySelectorAll('span[style]')).forEach(function (sp) {
+        if (spanTest(sp)) nodes.push(sp);
+      });
+      return nodes;
+    }
+    function normalize(el, prop, val) {
+      if (el.tagName === 'FONT') {
+        var sp = document.createElement('span');
+        while (el.firstChild) sp.appendChild(el.firstChild);
+        el.parentNode.replaceChild(sp, el);
+        el = sp;
+      }
+      el.style[prop] = val || '';
+      if (!val && !el.getAttribute('style')) unwrap(el);
+    }
+    function applySize(v) {
+      if (!restoreSel()) return;
+      document.execCommand('fontSize', false, '7');
+      collectMarked('font[size="7"]', function (sp) { return sp.style.fontSize === 'xxx-large'; })
+        .forEach(function (el) { normalize(el, 'fontSize', v); });
+      saveDraft(true);
+    }
+    function applyFontStack(stack) {
+      if (!restoreSel()) return;
+      document.execCommand('fontName', false, 'TAERIMTMP');
+      collectMarked('font[face="TAERIMTMP"]', function (sp) { return /TAERIMTMP/.test(sp.style.fontFamily); })
+        .forEach(function (el) { normalize(el, 'fontFamily', stack); });
+      saveDraft(true);
+    }
+    var FONT_STACKS = {
+      serif: "'Noto Serif KR',serif",
+      batang: "'Batang','바탕','Noto Serif KR',serif",
+      gungsuh: "'Gungsuh','궁서','Noto Serif KR',serif",
+      dotum: "'Dotum','돋움','Pretendard',sans-serif"
+    };
     // 서식 버튼은 mousedown에서 선택 영역을 기억해 둔다 (클릭하면 선택이 풀리므로)
     bar.addEventListener('mousedown', function (e) {
       if (e.target.closest('.fmt')) {
@@ -178,6 +242,15 @@
     });
     var picker = bar.querySelector('input[type=color]');
     picker.addEventListener('change', function () { applyFmt('foreColor', picker.value); });
+    [].slice.call(bar.querySelectorAll('select')).forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        var v = sel.value;
+        sel.selectedIndex = 0; // 같은 항목을 연달아 다시 적용할 수 있게 초기화
+        if (!v) return;
+        if (sel.getAttribute('data-sel') === 'size') applySize(v === 'reset' ? '' : v);
+        else applyFontStack(v === 'reset' ? '' : FONT_STACKS[v]);
+      });
+    });
     bar.addEventListener('click', function (e) {
       var b = e.target.closest('button');
       if (!b) return;
