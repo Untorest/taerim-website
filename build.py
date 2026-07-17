@@ -45,6 +45,26 @@ def render_case(c):
     )
 
 
+def render_branch(b):
+    facts = []
+    if b.get("director"):
+        facts.append(f'<li><span class="k">원장</span>{esc(b["director"])}</li>')
+    if b.get("address"):
+        facts.append(f'<li><span class="k">주소</span>{esc(b["address"])}</li>')
+    note = f'<p class="b-note">{esc(b["note"])}</p>' if b.get("note") else ""
+    tel = (f'<a class="b-tel" href="tel:{esc(b["phone"])}">{esc(b["phone"])}</a>'
+           if b.get("phone") else "")
+    return (
+        '      <article class="branch-card">\n'
+        f'        <span class="region">{esc(b["region"])}</span>\n'
+        f'        <h3>{esc(b["name"])}</h3>\n'
+        f'        {note}\n'
+        f'        <ul class="b-facts">{"".join(facts)}</ul>\n'
+        f'        {tel}\n'
+        '      </article>'
+    )
+
+
 def render_notice(n):
     return (
         f'      <li><span class="date">{kdate(n["date"])}</span>'
@@ -105,6 +125,13 @@ def main():
     print("공지 렌더:")
     splice(ROOT / "education.html", "<!-- NOTICES:START -->", "<!-- NOTICES:END -->",
            "\n".join(render_notice(n) for n in notices))
+
+    branches_file = ROOT / "data" / "branches.json"
+    if branches_file.exists():
+        branches = json.loads(branches_file.read_text(encoding="utf-8"))
+        print("분가 연수원 렌더:")
+        splice(ROOT / "branches.html", "<!-- BRANCHES:START -->", "<!-- BRANCHES:END -->",
+               "\n".join(render_branch(b) for b in branches))
 
     if "--no-fonts" not in sys.argv:
         print("폰트 서브셋:")
