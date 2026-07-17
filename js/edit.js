@@ -32,6 +32,11 @@
     '#taerim-editbar button:hover{background:#41522F;border-color:#41522F}' +
     '#taerim-editbar button.primary{background:#41522F;border-color:#41522F}' +
     '#taerim-editbar .hint{flex-basis:100%;font-size:12px;color:#B9B2A2;margin-top:.15rem}' +
+    '#taerim-editbar .fmt{display:flex;align-items:center;gap:.35rem;padding-left:.6rem;border-left:1px solid #6A6354}' +
+    '#taerim-editbar .fmt b.lbl{font-size:12px;color:#B9B2A2;font-weight:600;margin:0}' +
+    '#taerim-editbar .sw{width:26px;height:26px;border-radius:50%;border:2px solid #6A6354;cursor:pointer;padding:0}' +
+    '#taerim-editbar .sw:hover{border-color:#F8F4EC}' +
+    '#taerim-editbar input[type=color]{width:30px;height:28px;border:1px solid #6A6354;border-radius:6px;background:none;cursor:pointer;padding:1px}' +
     '#taerim-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;' +
     'background:#41522F;color:#fff;padding:.6rem 1.2rem;border-radius:999px;font-size:14px;font-weight:700;' +
     'opacity:0;transition:opacity .3s;pointer-events:none}' +
@@ -136,12 +141,48 @@
       '<button data-act="export">📤 파일로 내보내기</button>' +
       '<button data-act="reset">↩ 원래대로</button>' +
       '<button data-act="quit">✖ 편집 종료</button>' +
-      '<span class="hint">글자를 클릭하고 바로 타자 치세요. 고치다 말고 닫아도 임시 저장돼요. 다 고치면 [파일로 내보내기]를 눌러 아들에게 보내 주세요.</span>';
+      '<span class="fmt"><b class="lbl">서식:</b>' +
+      '<button data-fmt="bold" title="굵게"><b>가</b></button>' +
+      '<button class="sw" data-color="#221D15" style="background:#221D15" title="검정(기본)"></button>' +
+      '<button class="sw" data-color="#41522F" style="background:#41522F" title="쑥녹색"></button>' +
+      '<button class="sw" data-color="#B3261E" style="background:#B3261E" title="빨강"></button>' +
+      '<button class="sw" data-color="#1F5C9F" style="background:#1F5C9F" title="파랑"></button>' +
+      '<input type="color" value="#221D15" title="다른 색 고르기">' +
+      '</span>' +
+      '<span class="hint">글자를 클릭하고 바로 타자 치세요. 색을 바꾸려면 글자를 마우스로 긁어 선택한 뒤 색 동그라미를 누르세요. 고치다 말고 닫아도 임시 저장돼요. 다 고치면 [파일로 내보내기]를 눌러 아들에게 보내 주세요.</span>';
     document.body.appendChild(bar);
     document.body.style.paddingTop = '86px';
+    // 서식 적용: <font> 태그 대신 style="color:..." 스팬을 만들게 함
+    try { document.execCommand('styleWithCSS', false, true); } catch (e) {}
+    var savedRange = null;
+    function keepSelection() {
+      var s = window.getSelection();
+      if (s.rangeCount && !s.isCollapsed) savedRange = s.getRangeAt(0).cloneRange();
+    }
+    function applyFmt(cmd, val) {
+      if (savedRange) {
+        var s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(savedRange);
+      }
+      if (window.getSelection().isCollapsed) { showToast('먼저 글자를 마우스로 긁어 선택해 주세요'); return; }
+      document.execCommand(cmd, false, val);
+      saveDraft(true);
+    }
+    // 서식 버튼은 mousedown에서 선택 영역을 기억해 둔다 (클릭하면 선택이 풀리므로)
+    bar.addEventListener('mousedown', function (e) {
+      if (e.target.closest('.fmt')) {
+        keepSelection();
+        if (e.target.closest('button')) e.preventDefault();
+      }
+    });
+    var picker = bar.querySelector('input[type=color]');
+    picker.addEventListener('change', function () { applyFmt('foreColor', picker.value); });
     bar.addEventListener('click', function (e) {
       var b = e.target.closest('button');
       if (!b) return;
+      if (b.hasAttribute('data-fmt')) { applyFmt(b.getAttribute('data-fmt')); return; }
+      if (b.hasAttribute('data-color')) { applyFmt('foreColor', b.getAttribute('data-color')); return; }
       var act = b.getAttribute('data-act');
       if (act === 'toggle') setEditing(!editing);
       if (act === 'save') saveDraft();
