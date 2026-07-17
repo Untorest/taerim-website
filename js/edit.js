@@ -169,6 +169,12 @@
       '<option value="28pt">28</option>' +
       '<option value="32pt">32</option>' +
       '<option value="36pt">36</option>' +
+      '<option value="40pt">40</option>' +
+      '<option value="48pt">48</option>' +
+      '<option value="56pt">56</option>' +
+      '<option value="64pt">64</option>' +
+      '<option value="72pt">72</option>' +
+      '<option value="80pt">80</option>' +
       '<option value="reset">원래 크기로</option>' +
       '</select>' +
       '<button class="sw" data-color="#221D15" style="background:#221D15" title="검정(기본)"></button>' +
