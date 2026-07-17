@@ -152,11 +152,23 @@
       '<option value="dotum">돋움체</option>' +
       '<option value="reset">원래 글씨체로</option>' +
       '</select>' +
-      '<select data-sel="size" title="글자 크기">' +
-      '<option value="">크기</option>' +
-      '<option value="0.85em">작게</option>' +
-      '<option value="1.3em">크게</option>' +
-      '<option value="1.7em">아주 크게</option>' +
+      '<select data-sel="size" title="글자 크기(pt)">' +
+      '<option value="">크기(pt)</option>' +
+      '<option value="9pt">9</option>' +
+      '<option value="10pt">10</option>' +
+      '<option value="11pt">11</option>' +
+      '<option value="12pt">12</option>' +
+      '<option value="13pt">13</option>' +
+      '<option value="14pt">14</option>' +
+      '<option value="15pt">15</option>' +
+      '<option value="16pt">16</option>' +
+      '<option value="18pt">18</option>' +
+      '<option value="20pt">20</option>' +
+      '<option value="22pt">22</option>' +
+      '<option value="24pt">24</option>' +
+      '<option value="28pt">28</option>' +
+      '<option value="32pt">32</option>' +
+      '<option value="36pt">36</option>' +
       '<option value="reset">원래 크기로</option>' +
       '</select>' +
       '<button class="sw" data-color="#221D15" style="background:#221D15" title="검정(기본)"></button>' +
