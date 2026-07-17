@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 배포 시 {{도메인}}을 실제 도메인으로 교체 (SPEC §7) -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{도메인}}/</loc></url>
+  <url><loc>{{도메인}}/cases.html</loc></url>
+  <url><loc>{{도메인}}/education.html</loc></url>
+  <url><loc>{{도메인}}/about.html</loc></url>
+</urlset>

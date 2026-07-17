@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2026-07-001",
+    "date": "2026-07-01",
+    "title": "어깨 뭉침 관리 사례",
+    "type": "photo",
+    "photos": [],
+    "caption": "부항 안에 응고된 어혈",
+    "story": "{{수기 인용 자리: 방문자 본인이 쓴 글이 이 형식으로 실립니다}}",
+    "story_author": "{{작성자}} ({{나이}}세)"
+  },
+  {
+    "id": "2026-06-001",
+    "date": "2026-06-01",
+    "title": "다리 저림 관리 사례",
+    "type": "photo",
+    "photos": [],
+    "caption": "부항 안에 응고된 어혈",
+    "story": null,
+    "story_author": null
+  },
+  {
+    "id": "2026-05-001",
+    "date": "2026-05-01",
+    "title": "허리 관리 사례",
+    "type": "photo",
+    "photos": [],
+    "caption": "관리 전후 기록 사진",
+    "story": null,
+    "story_author": null
+  }
+]

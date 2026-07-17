@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오시는 길 — {{연수원명}} 자연정혈요법연수원</title>
+<meta name="description" content="{{연수원명}} 소개와 오시는 길. {{주소}}. 상담 {{전화번호}}">
+<meta property="og:title" content="오시는 길 — {{연수원명}}">
+<meta property="og:description" content="{{지역명}} 자연정혈요법연수원 소개와 오시는 길">
+<meta property="og:image" content="{{도메인}}/img/og.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header>
+  <div class="header-in">
+    <a class="brand" href="index.html">{{연수원명}}</a>
+    <nav>
+      <a href="index.html">홈</a>
+      <a href="cases.html">회복 사례</a>
+      <a href="education.html">교육 안내</a>
+      <a href="about.html" aria-current="page">오시는 길</a>
+    </nav>
+    <div class="header-tel">
+      <span class="num">{{전화번호}}</span>
+      <a class="btn-call" href="tel:{{전화번호}}">전화 상담</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="hanja" aria-hidden="true">硏修</div>
+  <div class="wrap">
+    <p class="kicker">연수원 소개 · 오시는 길</p>
+    <h1>{{연수원명}}을 소개합니다</h1>
+    <p class="sub">관리와 교육이 함께 이루어지는 {{지역명}}의 자연정혈요법연수원입니다.</p>
+  </div>
+</section>
+
+<section class="block reveal">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="portrait">원장 사진 자리</div>
+      <div>
+        <p class="kicker">원장 소개</p>
+        <h2 class="about-name">{{원장성함}} 원장</h2>
+        <p class="about-bio">{{원장이력: 걸어온 길을 사실 그대로, 한 문단}}</p>
+        <ul class="about-facts">
+          <li><span class="k">운영</span><span>{{운영연차}}년째 {{지역명}}에서 자연정혈요법연수원 운영</span></li>
+          <li><span class="k">등록</span><span>{{전국 연수원 등록}} 전국 연수원 명단 등재</span></li>
+          <li><span class="k">공간</span><span>{{연수원 내부 사진·소개 한 줄}}</span></li>
+          <li><span class="k">교육</span><span>자연정혈요법 교육 과정 운영 · <a href="education.html" style="color:var(--accent);font-weight:700">교육 안내 보기</a></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block reveal hairline-top">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>오시는 길</h2>
+      <p class="desc">{{주소}}</p>
+    </div>
+    <div class="visit-grid">
+      <div class="map-box">
+        <span>지도 자리</span>
+        <a class="btn-kakao" href="{{카카오맵 링크}}" target="_blank" rel="noopener">카카오맵으로 길찾기</a>
+      </div>
+      <ul class="about-facts">
+        <li><span class="k">주소</span><span>{{주소}}</span></li>
+        <li><span class="k">운영시간</span><span>{{운영시간}}</span></li>
+        <li><span class="k">주차</span><span>{{주차 안내}}</span></li>
+        <li><span class="k">전화</span><span><a href="tel:{{전화번호}}" style="color:var(--accent);font-weight:700">{{전화번호}}</a> — 상담은 원장이 직접 받습니다</span></li>
+        <li><span class="k">대중교통</span><span>{{대중교통 안내}}</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="final reveal">
+  <h2>오시기 전에<br>전화 한 통 부탁드립니다</h2>
+  <p class="addr">관리 중에는 받기 어려울 수 있어, 미리 시간을 잡고 오시면 기다림이 없습니다.</p>
+  <div class="cta-row">
+    <a class="btn-call" href="tel:{{전화번호}}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" fill="currentColor"/></svg>
+      {{전화번호}}</a>
+    <a class="btn-kakao" href="{{카톡채널ID}}">카카오톡 문의</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div>
+      <div class="fbrand">{{연수원명}}</div>
+      <p>자연정혈요법으로 어혈을 덜어내는 {{지역명}}의 연수원.<br>관리와 교육이 함께 이루어지는 공간입니다.</p>
+    </div>
+    <div>
+      <h4>둘러보기</h4>
+      <ul><li><a href="index.html">홈</a></li><li><a href="cases.html">회복 사례</a></li><li><a href="education.html">교육 안내</a></li><li><a href="about.html">오시는 길</a></li></ul>
+    </div>
+    <div>
+      <h4>찾아오시는 길</h4>
+      <ul><li>{{주소}}</li><li>{{운영시간}}</li><li>{{주차 안내}}</li></ul>
+    </div>
+    <div>
+      <h4>상담 문의</h4>
+      <ul><li><a class="tel-big" href="tel:{{전화번호}}">{{전화번호}}</a></li><li><a href="{{카톡채널ID}}">카카오톡 채널</a></li></ul>
+    </div>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="tel" href="tel:{{전화번호}}">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" fill="currentColor"/></svg>
+    전화하기</a>
+  <a class="kakao" href="{{카톡채널ID}}">카카오톡 문의</a>
+</div>
+
+<script src="js/site.js"></script>
+<script src="js/edit.js"></script>
+</body>
+</html>

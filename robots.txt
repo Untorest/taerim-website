@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: {{도메인}}/sitemap.xml
