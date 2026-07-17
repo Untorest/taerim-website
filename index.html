@@ -15,12 +15,12 @@
 
 <header>
   <div class="header-in">
-    <a class="brand" href="index.html">{{연수원명}}</a>
+    <a class="brand" href="#top">{{연수원명}}</a>
     <nav>
-      <a href="index.html" aria-current="page">홈</a>
-      <a href="cases.html">회복 사례</a>
-      <a href="education.html">교육 안내</a>
-      <a href="about.html">오시는 길</a>
+      <a href="#top">홈</a>
+      <a href="#cases">회복 사례</a>
+      <a href="#edu">교육 안내</a>
+      <a href="#visit">오시는 길</a>
       <a href="branches.html">전국 연수원</a>
     </nav>
     <div class="header-tel">
@@ -31,7 +31,7 @@
 </header>
 
 <!-- 1. 히어로 -->
-<section class="hero">
+<section class="hero" id="top">
   <div class="hanja" aria-hidden="true">瘀血</div>
   <div class="wrap">
     <div class="hero-grid">
@@ -138,7 +138,7 @@
 </section>
 
 <!-- 5. 사례 프리뷰 (build.py가 data/cases.json 최신 3건으로 갱신) -->
-<section class="block case-band reveal">
+<section class="block case-band reveal" id="cases">
   <div class="wrap">
     <div class="sec-head">
       <h2>다녀가신 분들의<br>기록</h2>
@@ -189,14 +189,35 @@
           <li><span class="k">운영</span><span>{{운영연차}}년째 {{지역명}}에서 자연정혈요법연수원 운영</span></li>
           <li><span class="k">등록</span><span>{{전국 연수원 등록}} 전국 연수원 명단 등재</span></li>
           <li><span class="k">공간</span><span>{{연수원 내부 사진·소개 한 줄}}</span></li>
-          <li><span class="k">교육</span><span>자연정혈요법 교육 과정 운영 · <a href="education.html" style="color:var(--accent);font-weight:700">교육 안내 보기</a></span></li>
+          <li><span class="k">교육</span><span>자연정혈요법 교육 과정 운영 · <a href="#edu" style="color:var(--accent);font-weight:700">교육 안내 보기</a></span></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 7. FAQ -->
+<!-- 7. 교육 안내 -->
+<section class="block reveal hairline-top" id="edu">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>배우고 싶으신<br>분께</h2>
+      <p class="desc">{{원장성함}} 원장에게 몇 달에 걸쳐 자연정혈요법을 배우는 과정입니다. 자세한 커리큘럼과 일정은 전화로 문의해 주세요.</p>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card"><h3>배우는 것</h3><p>{{교육 내용: 어혈의 이해, 부항·침 다루는 법, 부위별 관리 등 — 실제 커리큘럼으로 교체}}</p></div>
+      <div class="edu-card"><h3>기간과 방식</h3><p>{{교육 기간·방식: 몇 개월 과정인지, 주 몇 회인지, 실습 비중 등}}</p></div>
+      <div class="edu-card"><h3>이런 분께</h3><p>가족의 건강을 스스로 챙기고 싶은 분, 자연정혈요법을 업으로 배우고 싶은 분.</p></div>
+    </div>
+    <h3 class="sub-title">교육 공지</h3>
+    <ul class="notice-list">
+      <!-- NOTICES:START -->
+      <li><span class="date">2026년 8월</span><span><span class="title">{{교육 공지 제목: 예) 가을 교육 과정 모집 안내}}</span><span class="body" style="display:block">{{공지 내용: 모집 기간·인원·문의 방법}}</span></span></li>
+      <!-- NOTICES:END -->
+    </ul>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
 <section class="block reveal faq hairline-top">
   <div class="wrap">
     <div class="sec-head">
@@ -218,13 +239,36 @@
       </details>
       <details>
         <summary>배우고 싶은데 교육도 하나요?</summary>
-        <div class="a">몇 달에 걸친 자연정혈요법 교육 과정을 운영합니다. <a href="education.html" style="color:var(--accent);font-weight:700">교육 안내</a>를 확인해 주세요.</div>
+        <div class="a">몇 달에 걸친 자연정혈요법 교육 과정을 운영합니다. <a href="#edu" style="color:var(--accent);font-weight:700">교육 안내</a>를 확인해 주세요.</div>
       </details>
     </div>
   </div>
 </section>
 
-<!-- 8. 마무리 CTA -->
+<!-- 9. 오시는 길 -->
+<section class="block reveal hairline-top" id="visit">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>오시는 길</h2>
+      <p class="desc">{{주소}}</p>
+    </div>
+    <div class="visit-grid">
+      <div class="map-box">
+        <span>지도 자리</span>
+        <a class="btn-kakao" href="{{카카오맵 링크}}" target="_blank" rel="noopener">카카오맵으로 길찾기</a>
+      </div>
+      <ul class="about-facts">
+        <li><span class="k">주소</span><span>{{주소}}</span></li>
+        <li><span class="k">운영시간</span><span>{{운영시간}}</span></li>
+        <li><span class="k">주차</span><span>{{주차 안내}}</span></li>
+        <li><span class="k">전화</span><span><a href="tel:{{전화번호}}" style="color:var(--accent);font-weight:700">{{전화번호}}</a> — 상담은 원장이 직접 받습니다</span></li>
+        <li><span class="k">대중교통</span><span>{{대중교통 안내}}</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 10. 마무리 CTA -->
 <section class="final reveal">
   <h2>몸이 무거우셨다면,<br>전화 한 통이 시작입니다</h2>
   <p class="addr">{{주소}} · {{운영시간}}</p>
@@ -245,7 +289,7 @@
     </div>
     <div>
       <h4>둘러보기</h4>
-      <ul><li><a href="index.html">홈</a></li><li><a href="cases.html">회복 사례</a></li><li><a href="education.html">교육 안내</a></li><li><a href="about.html">오시는 길</a></li><li><a href="branches.html">전국 연수원</a></li></ul>
+      <ul><li><a href="#top">홈</a></li><li><a href="#cases">회복 사례</a></li><li><a href="#edu">교육 안내</a></li><li><a href="#visit">오시는 길</a></li><li><a href="branches.html">전국 연수원</a></li></ul>
     </div>
     <div>
       <h4>찾아오시는 길</h4>

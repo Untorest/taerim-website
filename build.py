@@ -123,7 +123,7 @@ def main():
     splice(ROOT / "cases.html", "<!-- CASES:START -->", "<!-- CASES:END -->",
            "\n".join(render_case(c) for c in cases))
     print("공지 렌더:")
-    splice(ROOT / "education.html", "<!-- NOTICES:START -->", "<!-- NOTICES:END -->",
+    splice(ROOT / "index.html", "<!-- NOTICES:START -->", "<!-- NOTICES:END -->",
            "\n".join(render_notice(n) for n in notices))
 
     branches_file = ROOT / "data" / "branches.json"

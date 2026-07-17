@@ -227,7 +227,8 @@ blockquote.story cite{display:block;font-family:var(--sans);font-style:normal;fo
 .faq details[open] summary::after{content:"−"}
 .faq .a{padding:0 .1rem 1.3rem;color:var(--ink-soft);font-size:.96rem}
 
-/* ── 교육 페이지 ── */
+/* ── 교육 섹션 ── */
+.sub-title{font-family:var(--serif);font-weight:700;font-size:1.3rem;margin:3rem 0 1rem}
 .edu-grid{display:grid;gap:1rem}
 @media(min-width:900px){.edu-grid{grid-template-columns:repeat(3,1fr)}}
 .edu-card{border:1px solid var(--line);border-radius:6px;background:#FDFBF6;padding:1.6rem 1.5rem}
