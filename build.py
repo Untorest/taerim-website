@@ -7,7 +7,7 @@
 
 사례 추가 = data/cases.json에 항목 추가 후 이 스크립트 실행이 전부다.
 """
-import json, html, re, sys, subprocess, shutil, string
+import json, html, re, sys, subprocess, shutil, string, hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -111,6 +111,22 @@ def subset_fonts():
         print(f"  fonts/{out} ({size}KB)")
 
 
+def stamp_assets():
+    """CSS/JS 참조에 내용 해시를 붙인다 — 파일이 바뀌면 브라우저가 반드시 새로 받는다."""
+    assets = ["css/site.css", "js/site.js", "js/edit.js"]
+    stamps = {}
+    for a in assets:
+        p = ROOT / a
+        if p.exists():
+            stamps[a] = hashlib.sha1(p.read_bytes()).hexdigest()[:8]
+    for page in ROOT.glob("*.html"):
+        t = page.read_text(encoding="utf-8")
+        for a, h in stamps.items():
+            t = re.sub(re.escape(a) + r"(\?v=[0-9a-f]+)?", f"{a}?v={h}", t)
+        page.write_text(t, encoding="utf-8")
+    print("  " + ", ".join(f"{a}?v={h}" for a, h in stamps.items()))
+
+
 def main():
     cases = sorted(json.loads((ROOT / "data" / "cases.json").read_text(encoding="utf-8")),
                    key=lambda c: c["date"], reverse=True)
@@ -132,6 +148,9 @@ def main():
         print("분가 연수원 렌더:")
         splice(ROOT / "branches.html", "<!-- BRANCHES:START -->", "<!-- BRANCHES:END -->",
                "\n".join(render_branch(b) for b in branches))
+
+    print("에셋 버전 스탬프:")
+    stamp_assets()
 
     if "--no-fonts" not in sys.argv:
         print("폰트 서브셋:")
